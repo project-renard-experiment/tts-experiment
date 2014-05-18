@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo apt-get install festival festlex-cmu festlex-poslex festlex-oald libestools1.2 unzip

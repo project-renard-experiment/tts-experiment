@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# list voices
+#apt-cache search festvox-*
+
+sudo apt-get install festvox-don festvox-rablpc16k festvox-kallpc16k festvox-kdlpc16k

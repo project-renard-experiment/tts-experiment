@@ -1,0 +1,18 @@
+#!/bin/sh
+
+CURDIR=`dirname "$0"`
+TOP="$CURDIR/../festival-data/voice/mbrola"
+mkdir -p $TOP
+cd "$TOP"
+
+wget -c http://tcts.fpms.ac.be/synthesis/mbrola/bin/pclinux/mbrola3.0.1h_i386.deb \
+	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip \
+	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us2/us2-980812.zip \
+	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us3/us3-990208.zip \
+	http://www.festvox.org/packed/festival/latest/festvox_us1.tar.gz \
+	http://www.festvox.org/packed/festival/latest/festvox_us2.tar.gz \
+	http://www.festvox.org/packed/festival/latest/festvox_us3.tar.gz
+
+sudo dpkg -i mbrola3.0.1h_i386.deb
+
+# TODO
