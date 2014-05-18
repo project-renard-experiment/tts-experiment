@@ -1,9 +1,10 @@
 #!/bin/sh
 
 CURDIR=`dirname "$0"`
-TOP="$CURDIR/../festival-data/voice/mbrola"
-mkdir -p $TOP
-cd "$TOP"
+TOP="$CURDIR/../.."
+WORK="$TOP/festival-data/voice/mbrola"
+mkdir -p "$WORK"
+cd "$WORK"
 
 wget -c http://tcts.fpms.ac.be/synthesis/mbrola/bin/pclinux/mbrola3.0.1h_i386.deb \
 	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip \
