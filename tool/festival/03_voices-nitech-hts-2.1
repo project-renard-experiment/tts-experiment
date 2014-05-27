@@ -1,0 +1,36 @@
+#!/bin/sh
+
+CURDIR=`dirname "$0"`
+TOP="$CURDIR/../.."
+WORK="$TOP/festival-data/voice/nitech-hts-2.1"
+WORK_EXTRACT="$WORK/extract"
+mkdir -p "$WORK"
+mkdir -p "$WORK_EXTRACT"
+
+echo "This installs the Nitech HTS voices and patches them for newer versions of Festival"
+# <http://hts.sp.nitech.ac.jp/?Download>
+
+wget -P $WORK -c \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_awb_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_bdl_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_clb_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_rms_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_slt_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/2.1/festvox_nitech_us_jmk_arctic_hts-2.1.tar.bz2 \
+	http://hts.sp.nitech.ac.jp/archives/1.1.1/cmu_us_kal_com_hts.tar.gz                  \
+	http://hts.sp.nitech.ac.jp/archives/1.1.1/cstr_us_ked_timit_hts.tar.gz
+
+for tar_file in `ls $WORK/*.tar.*`; do
+	tar xvf $tar_file -C $WORK_EXTRACT
+done
+
+# patch via <https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=589614>
+perl -i -plE "
+	s,\\Q(require 'hts)\\E,(require 'hts21compat),g;
+	s,\\Q(Parameter.set 'Synth_Method 'HTS)\\E,(Parameter.set 'Synth_Method 'HTS21),g
+" \
+	$(find $WORK_EXTRACT -name '*.scm' )
+
+#sudo mkdir -p /usr/share/festival/voices/us
+#sudo mv $WORK_EXTRACT/lib/voices/us/* /usr/share/festival/voices/us/
+#sudo mv $WORK_EXTRACT/lib/hts.scm /usr/share/festival/hts.scm

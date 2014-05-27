@@ -3,17 +3,39 @@
 CURDIR=`dirname "$0"`
 TOP="$CURDIR/../.."
 WORK="$TOP/festival-data/voice/mbrola"
+WORK_EXTRACT="$WORK/extract"
 mkdir -p "$WORK"
-cd "$WORK"
+mkdir -p "$WORK_EXTRACT"
 
-wget -c http://tcts.fpms.ac.be/synthesis/mbrola/bin/pclinux/mbrola3.0.1h_i386.deb \
+echo "This downloads and unpacks the MBROLA voices"
+
+wget -P $WORK -c \
+	http://tcts.fpms.ac.be/synthesis/mbrola/bin/pclinux/mbrola3.0.1h_i386.deb \
 	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us1/us1-980512.zip \
 	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us2/us2-980812.zip \
-	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us3/us3-990208.zip \
-	http://www.festvox.org/packed/festival/latest/festvox_us1.tar.gz \
-	http://www.festvox.org/packed/festival/latest/festvox_us2.tar.gz \
-	http://www.festvox.org/packed/festival/latest/festvox_us3.tar.gz
+	http://tcts.fpms.ac.be/synthesis/mbrola/dba/us3/us3-990208.zip
 
-sudo dpkg -i mbrola3.0.1h_i386.deb
+#http://www.festvox.org/packed/festival/latest/festvox_us1.tar.gz \
+#http://www.festvox.org/packed/festival/latest/festvox_us2.tar.gz \
+#http://www.festvox.org/packed/festival/latest/festvox_us3.tar.gz
 
-# TODO
+
+for zip_file in us1-980512.zip us2-980812.zip us3-990208.zip; do
+	ls $WORK/$zip_file
+	unzip $WORK/$zip_file -d $WORK_EXTRACT
+done
+
+for tar_file in festvox_us1.tar.gz festvox_us2.tar.gz festvox_us3.tar.gz; do
+	tar -C $WORK_EXTRACT xzvf $WORK/$tar_file
+done
+
+#sudo dpkg -i mbrola3.0.1h_i386.deb
+#sudo mkdir -p /usr/share/festival/voices/english/us1_mbrola/
+#sudo mkdir -p /usr/share/festival/voices/english/us2_mbrola/
+#sudo mkdir -p /usr/share/festival/voices/english/us3_mbrola/
+#sudo mv $WORK_EXTRACT/us1 /usr/share/festival/voices/english/us1_mbrola/
+#sudo mv $WORK_EXTRACT/us2 /usr/share/festival/voices/english/us2_mbrola/
+#sudo mv $WORK_EXTRACT/us3 /usr/share/festival/voices/english/us3_mbrola/
+#sudo mv $WORK_EXTRACT/festival/lib/voices/english/us1_mbrola/* /usr/share/festival/voices/english/us1_mbrola/
+#sudo mv $WORK_EXTRACT/festival/lib/voices/english/us2_mbrola/* /usr/share/festival/voices/english/us2_mbrola/
+#sudo mv $WORK_EXTRACT/festival/lib/voices/english/us3_mbrola/* /usr/share/festival/voices/english/us3_mbrola/

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+CURDIR=`dirname "$0"`
+TOP="$CURDIR/../.."
+WORK="$TOP/festival-data/voice/cmu-arctic"
+WORK_EXTRACT="$WORK/extract"
+mkdir -p "$WORK"
+mkdir -p "$WORK_EXTRACT"
+
+echo  "This installs the CMU arctic voices"
+
+wget -P $WORK -c \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_awb_arctic-0.90-release.tar.bz2 \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_bdl_arctic-0.95-release.tar.bz2 \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_clb_arctic-0.95-release.tar.bz2 \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_jmk_arctic-0.95-release.tar.bz2 \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_rms_arctic-0.95-release.tar.bz2 \
+	http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_slt_arctic-0.95-release.tar.bz2
+
+for tar_file in `ls $WORK/*.tar.bz2`; do
+	ls $tar_file
+	tar xvf $tar_file -C $WORK_EXTRACT
+done
+
+#sudo mkdir -p /usr/share/festival/voices/english/
+#sudo mv $WORK_EXTRACT/* /usr/share/festival/voices/english/
+#for d in `ls /usr/share/festival/voices/english` ; do
+	#if [[ "$d" =~ "cmu_us_" ]] ; then
+		#sudo mv "/usr/share/festival/voices/english/${d}" "/usr/share/festival/voices/english/${d}_clunits" 
+	#fi
+#done

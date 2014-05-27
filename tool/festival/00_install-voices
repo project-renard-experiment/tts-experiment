@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "This installs the Debian packages for various Festival voices"
+
 # list voices
 #apt-cache search festvox-*
 
