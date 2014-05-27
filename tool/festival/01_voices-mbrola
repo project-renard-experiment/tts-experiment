@@ -29,7 +29,7 @@ for tar_file in festvox_us1.tar.gz festvox_us2.tar.gz festvox_us3.tar.gz; do
 	tar -C $WORK_EXTRACT xzvf $WORK/$tar_file
 done
 
-#sudo dpkg -i mbrola3.0.1h_i386.deb
+#sudo dpkg -i $WORK_EXTRACT/mbrola3.0.1h_i386.deb
 #sudo mkdir -p /usr/share/festival/voices/english/us1_mbrola/
 #sudo mkdir -p /usr/share/festival/voices/english/us2_mbrola/
 #sudo mkdir -p /usr/share/festival/voices/english/us3_mbrola/
